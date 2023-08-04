@@ -1,5 +1,3 @@
-// SeekBar.tsx
-
 import React from "react";
 
 interface SeekBarProps {

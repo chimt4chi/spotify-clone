@@ -10,6 +10,9 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
+import { AiOutlinePlus } from "react-icons/ai";
+import useUploadModal from "@/hooks/useUploadModal";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -19,9 +22,18 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const authModal = useAuthModal();
   const router = useRouter();
+  const uploadModal = useUploadModal();
 
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
+
+  const onClick = () => {
+    if (!user) {
+      return authModal.onOpen();
+    }
+
+    return uploadModal.onOpen();
+  };
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
@@ -125,12 +137,14 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           transition
           "
           >
-            <HiHome
-              className="
-            text-black
-            "
-              size={20}
-            />
+            <Link href="/">
+              <HiHome
+                className="
+              text-black
+              "
+                size={20}
+              />
+            </Link>
           </button>
           <button
             className="
@@ -144,12 +158,36 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           transition
           "
           >
-            <BiSearch
-              className="
-            text-black
-            "
-              size={20}
-            />
+            <Link href="/search">
+              <BiSearch
+                className="
+              text-black
+              "
+                size={20}
+              />
+            </Link>
+          </button>
+          <button
+            onClick={onClick}
+            className="
+          rounded-full
+          p-2
+          bg-white
+          flex
+          items-center
+          justify-center
+          hover:opacity-75
+          transition
+          "
+          >
+            <Link href="/search">
+              <AiOutlinePlus
+                className="
+              text-black
+              "
+                size={20}
+              />
+            </Link>
           </button>
         </div>
         <div
@@ -172,6 +210,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <Button
                 onClick={() => router.push("/account")}
                 className="bg-white"
+                disabled
               >
                 <FaUserAlt />
               </Button>

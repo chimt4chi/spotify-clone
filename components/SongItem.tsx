@@ -71,6 +71,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           absolute 
           bottom-24 
           right-5
+          opacity-0 group-hover:opacity-100 transition-opacity
         "
       >
         <PlayButton />
