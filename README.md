@@ -6,5 +6,9 @@ As the name it self describes it is a spotify clone
 Upload Music, Listen To Music, Likes Songs
 
 # install
-just shoot your terminal and type npm i
+Just shoot your terminal and type npm i
+
+# .env
+
+Make sure to setup .env file
 
